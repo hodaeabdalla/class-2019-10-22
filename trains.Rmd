@@ -1,17 +1,30 @@
 ---
 title: "Trains"
-author: "Hoda Abdalla"
+author: "Hoda Abdalla and Molly Chiang"
 date: "10/22/2019"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
 library(readxl)
+library(gt)
 library(tidyverse)
 ```
 
 ```{r}
-x <- read_csv("train.csv")
+x <- read_csv("train.csv", col_types = cols(
+                                        obs = col_double(),
+                                        citizen = col_logical(),
+                                        age = col_double(),
+                                        treatment = col_double(),
+                                        attitude = col_double()
+                                        ))
+
+x %>%
+  select(obs, citizen, age) %>%
+  mutate('Y(0)' = c('?', '3', '3', '?')) %>%
+  mutate('Y(1)' = c('15', '?', '?', '11')) %>%
+  gt() 
 ```
 
